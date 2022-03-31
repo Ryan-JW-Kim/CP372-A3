@@ -32,7 +32,7 @@ class Node:
                 else:
                     self.distanceTable[k][j] = self.ns.INFINITY
 
-        # -------------------------INITALIZING ROUTES LIST---------------------------
+        # -------------------------INITALIZING ROUTES LIST and SAVING LINKS TO ALL NEIGHBORING NODES---------------------------
 
         for dest in range(self.ns.NUM_NODES):
 
@@ -45,8 +45,8 @@ class Node:
 
                 self.has_link[dest] = [dest, False]
 
-        # -------------------------TRANSMITTING DISTANCE TABLE TO ALL NEIGHBOURS-----
 
+        # -------------------------TRANSMITTING DISTANCE TABLE TO ALL NEIGHBOURS-----
 
         for link in self.has_link:
 
@@ -69,7 +69,7 @@ class Node:
         retransmit = False
 
 
-        # Assume router destinaion can be reached via router_id (updated costs from pkt.sourceid)
+        # Assume some router destinaion can be reached via router_id (updated costs from pkt.sourceid)
         router_id = pkt.sourceid
 
         # distance of link between this node and router_id (router with new min costs)
@@ -79,7 +79,6 @@ class Node:
         for router_destination_id in range(self.ns.NUM_NODES): # Excluding non-existant links
             if self.distanceTable[router_id][router_destination_id] == self.ns.INFINITY:
                 pass
-
 
             direct_cost = self.distanceTable[self.myID][router_destination_id]
 
